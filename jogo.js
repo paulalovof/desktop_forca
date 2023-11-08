@@ -44,7 +44,7 @@ const palavras = {
         dica: 'Game Of Thrones é a melhor ...'
     },
     {
-        palavra: 'impar',
+        palavra: 'ímpar',
         dica: 'Se não é par é ...'
     },
     {
@@ -54,8 +54,32 @@ const palavras = {
     {
         palavra: 'sonho',
         dica: 'Temos quando vamos dormir'
-    }
-]};
+    }],
+    medio: [{
+        palavra: 'recesso',
+        dica: 'acontece quando o feriado é no meio da semana'
+    },
+    {
+        palavra: 'luxúria',
+        dica: 'um dos sete pecados'
+    },
+    {
+        palavra: 'moleque',
+        dica: 'errei, fui ...'
+    }],
+    dificil: [{
+        palavra: 'hipócrita',
+        dica: 'reclama de algo mas faz igual'
+    },
+    {
+        palavra: 'recíproco',
+        dica: 'todos querem um amor ...'
+    },
+    {
+        palavra: 'vagabundo',
+        dica: 'vai trabalhar ...'
+    }]
+};
 
 function criarTeclado(){
     const letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -96,7 +120,8 @@ function mostrarMensagem(vitoria){
 }
 
 function abrirTelaCadastroPalavra(){
-
+    elementos.telaInicial.style.display = 'none';
+    elementos.telaCadastro.style.display = 'flex';
 }
 
 function voltarInicio(){
@@ -104,7 +129,33 @@ function voltarInicio(){
 }
 
 function cadastrarPalvara(){
+    const novaPalavra = elementos.campos.palavra.value;
+    const novaDica = elementos.campos.dica.value;
 
+    var novaDificuldade = '';
+
+    if(elementos.campos.dificuldade.facil.checked){
+        novaDificuldade = 'facil';
+        //palavras.facil.palavra.push(novaPalavra);
+        //palavras.facil.dica.push(novaDica);
+        palavras.facil.push({palavra: novaPalavra, dica: novaDica});
+        console.log("Palavras; ", palavras.facil);
+    }else if(elementos.campos.dificuldade.medio.checked){
+        novaDificuldade = 'medio';
+        palavras.medio.push({palavra: novaPalavra, dica: novaDica});
+        console.log("Palavras; ", palavras.medio);
+    }else if(elementos.campos.dificuldade.dificil.checked){
+        novaDificuldade = 'dificil';
+        palavras.dificil.push({palavra: novaPalavra, dica: novaDica});
+        console.log("Palavras; ", palavras.dificil);
+    }
+
+    console.log("palavra: ", novaPalavra);
+    console.log("dica: ", novaDica);
+    console.log("dificuldade", novaDificuldade);
+
+    confirm("Nova palavra cadastrada com sucesso!");
+    
 }
 
 function sortearPalavra(){
@@ -253,3 +304,5 @@ elementos.botoes.medio.addEventListener('click', () => iniciarJogo('medio'));
 elementos.botoes.dificil.addEventListener('click', () => iniciarJogo('dificil'));
 elementos.botoes.reiniciar.addEventListener('click', ()=> novoJogo());
 elementos.botoes.voltar.addEventListener('click', () => voltarInicio());
+elementos.botoes.cadastrar.addEventListener('click', () => abrirTelaCadastroPalavra());
+elementos.botoes.realizarCadastro.addEventListener('click', () => cadastrarPalvara());
