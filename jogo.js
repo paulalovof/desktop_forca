@@ -78,7 +78,7 @@ function criarTeclado(){
 };
 
 function mostrarErro(){
-    const parte = elementos.boneco[5 - jogo.cances];
+    const parte = elementos.boneco[5 - jogo.chances];
 
     parte.classList.remove('escondido');
 };
@@ -90,7 +90,7 @@ function mostrarMensagem(vitoria){
 
     elementos.telaMensagem.style.display = 'flex';
 
-    elementos.telaMensagem.classList.add(`mensagem-${vitorria ? 'vitoria' : 'derrota'}`);
+    elementos.telaMensagem.classList.add(`mensagem-${vitoria ? 'vitoria' : 'derrota'}`);
 
     jogo.emAndamento = false;
 }
@@ -100,7 +100,7 @@ function abrirTelaCadastroPalavra(){
 }
 
 function voltarInicio(){
-
+    novoJogo();
 }
 
 function cadastrarPalvara(){
@@ -151,7 +151,7 @@ function novoJogo(){
             this.palavra.tamanho = palavra.length;
             this.acertos = '';
 
-            this.palavra.semAcentos = this.palavra.original.normalize('NFD').replace(/[|u0300-\u036f]/g, '');
+            this.palavra.semAcentos = this.palavra.original.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
             this.palavra.dica = dica;
 
             for(let i=0; i<this.palavra.tamanho; i++){
@@ -166,7 +166,7 @@ function novoJogo(){
                 if(letra === letraJogada.toLowerCase()){
                     acertou = true;
 
-                    this.acertos = substituirCaractere(this.acertos, i, this.palavra.origina[i]);
+                    this.acertos = substituirCaractere(this.acertos, i, this.palavra.original[i]);
                 }
             }
 
@@ -249,3 +249,7 @@ function substituirCaractere(str, indice, novoCaractere){
 
 novoJogo();
 elementos.botoes.facil.addEventListener('click', () => iniciarJogo('facil'));
+elementos.botoes.medio.addEventListener('click', () => iniciarJogo('medio'));
+elementos.botoes.dificil.addEventListener('click', () => iniciarJogo('dificil'));
+elementos.botoes.reiniciar.addEventListener('click', ()=> novoJogo());
+elementos.botoes.voltar.addEventListener('click', () => voltarInicio());
